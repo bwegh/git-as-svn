@@ -129,6 +129,9 @@ val compileDocs by tasks.registering(Copy::class) {
     from("$buildDir/docs/asciidoc") {
         into("htmlsingle")
     }
+	from("$buildDir/docs/asciidoc/examples") {
+		into("examples")
+	}
     from("$buildDir/docs/asciidocEpub")
     from("$buildDir/docs/asciidocPdf")
     from("$projectDir") {
