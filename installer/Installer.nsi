@@ -102,7 +102,7 @@ Section "Add to Autostart" SecAutostart
 
   DetailPrint "Registering GitAsSvn for autostart"
   ;Add LogicClient to autostart of all users
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "${Name}" "$INSTDIR\run.bat"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "${Name}" "cmd.exe /c start /min cmd.exe /c $\"$INSTDIR\run.bat$\""
   
 SectionEnd
 
