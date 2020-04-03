@@ -23,6 +23,11 @@ move git-as-svn* git-as-svn
 mkdir git-as-svn\etc
 copy git-as-svn\doc\examples\config.yml git-as-svn\etc\git-as-svn.conf
 
+if exist config.yml (
+	echo using local configuration
+	copy config.yml git-as-svn\etc\git-as-svn.conf
+)
+
 call "C:\Program Files (x86)\NSIS\makensis.exe"  Installer.nsi
 rmdir /S /Q git-as-svn
 del /Q Version.nsh
