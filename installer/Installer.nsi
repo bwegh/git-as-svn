@@ -80,6 +80,14 @@ Section "GitAsSvn" SecGitAsSvn
   DetailPrint "copy files"
   File /r git-as-svn\*
 
+  IfFileExists "$INSTDIR\etc\git-as-svn.conf" copyConfig writeConfig
+  Goto writeConfig
+
+copyConfig:
+  CopyFiles "$INSTDIR\etc\git-as-svn.conf" "$INSTDIR\etc\git-as-svn.back"
+
+
+writeConfig:
   ${StrRep} $6 "$INSTDIR" "\" "/"
   
   DetailPrint "adjusting config file using $6"
