@@ -137,6 +137,11 @@ Section "Add to Autostart" SecAutostart
   
 SectionEnd
 
+Function .onInstSuccess
+	MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON1 "${Name} has been installed successfully. Do you want adust the configuration now?" IDNO +2
+	ExecShell "open" "$INSTDIR\etc\git-as-svn.conf"
+FunctionEnd
+
 ;--------------------------------
 ;Uninstaller Section
 
