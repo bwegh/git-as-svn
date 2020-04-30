@@ -1,6 +1,7 @@
 @echo off
 cd %~dp0
 cd ..
+call gradlew.bat clean
 call gradlew.bat distZip
 
 cd %~dp0
@@ -14,9 +15,12 @@ for /f "delims=" %%A in ('cd') do (
     )
 cd ..
 
+echo using foldername %foldername%
+
 FOR /f "tokens=1,2 delims=_" %%a IN ("%foldername%") do (
 	 set version=%%b
 	)
+echo using version %version%
 echo. !define VERSION "%version%" > Version.nsh
 
 move git-as-svn* git-as-svn 
