@@ -57,7 +57,7 @@ You can check configuration with command like:
 
 [source,bash]
 ----
-svn ls --username test --password test svn://localhost/example/
+svn ls --username test --password test svn://localhost/example/master
 ----
 
 ==== Used directories
@@ -119,7 +119,7 @@ This will start git-as-svn server with following configuration:
 You can check server with command like:
 +
 ----
-svn ls svn://localhost/example
+svn ls svn://localhost/example/master
 ----
 
 2. To access the server, you can use the user:
