@@ -38,6 +38,12 @@ import java.util.*;
  * @author Artem V. Navrotskiy <bozaro@users.noreply.github.com>
  */
 public final class GitWriter implements AutoCloseable {
+    @NotNull
+  public static final String keepFileName = ".keep";
+
+  @NotNull
+  public static final byte[] keepFileContents = GitRepository.emptyBytes;
+
   private static final int MAX_PROPERTY_ERRROS = 50;
 
   @NotNull
@@ -160,7 +166,17 @@ public final class GitWriter implements AutoCloseable {
       final GitTreeUpdate current = treeStack.element();
       final String fullPath = getFullPath(last.getName());
       if (last.getEntries().isEmpty()) {
-        throw new SVNException(SVNErrorMessage.create(SVNErrorCode.CANCELLED, "Empty directories is not supported: " + fullPath));
+         final GitTreeEntry keepFile = new GitTreeEntry(
+            branch.getRepository().getGit(),
+            FileMode.REGULAR_FILE,
+            inserter.insert(Constants.OBJ_BLOB, keepFileContents),
+            keepFileName
+        );
+        last.getEntries().put(keepFile.getFileName(), keepFile);
+      } else if(last.getEntries().containsKey(keepFileName) && last.getEntries().size() >= 2) {
+        // remove keep file if it is not the only file in the directory
+        // would be good to also validate the content
+        last.getEntries().remove(keepFileName);
       }
       final ObjectId subtreeId = last.buildTree(inserter);
       log.debug("Create tree {} for dir: {}", subtreeId.name(), fullPath);
