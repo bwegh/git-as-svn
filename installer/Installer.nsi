@@ -84,6 +84,7 @@ Section "GitAsSvn" SecGitAsSvn
   Goto writeConfig
 
 copyConfig:
+  DetailPrint "backing up current configuration"
   CopyFiles "$INSTDIR\etc\git-as-svn.conf" "$INSTDIR\etc\git-as-svn.back"
 
 
