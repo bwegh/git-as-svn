@@ -112,7 +112,10 @@ writeConfig:
   DetailPrint "writing run file"
   FileOpen $9 run.bat w ;Opens a Empty File an fills it
   FileWrite $9 "call %~dp0\bin\git-as-svn.bat -c $\"$INSTDIR\etc\git-as-svn.conf$\"$\r$\n"
-  FileClose $9 ;Closes the filled file
+  FileWrite $9 "IF NOT ERRORLEVEL 1 GOTO no_error$\r$\n"
+  FileWrite $9 "pause$\r$\n"
+  FileWrite $9 ":no_error$\r$\n"
+  FileClose $9 ;Closes the file
 
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
